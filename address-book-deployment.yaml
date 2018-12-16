@@ -1,0 +1,22 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: address-book-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: address-book-container
+  template:
+    metadata:
+      labels:
+        app: address-book-container
+        tier: backend
+    spec:
+      containers:
+        - name: address-book-container
+          image: address-book:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: Never
