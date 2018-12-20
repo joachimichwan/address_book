@@ -58,7 +58,7 @@ public class ApiController {
     }
 
     @PostMapping(value = "/address/update")
-    public BaseResponse<AddressModel> updatePasien(@RequestBody @Valid AddressModel address, BindingResult bindingResult) {
+    public BaseResponse<AddressModel> updateAddress(@RequestBody @Valid AddressModel address, BindingResult bindingResult) {
         BaseResponse<AddressModel> response = new BaseResponse<AddressModel>();
         if (bindingResult.hasErrors()) {
             response.setStatus(500);
@@ -82,8 +82,23 @@ public class ApiController {
         return response;
     }
 
+    @PostMapping(value = "/address/create")
+    public BaseResponse<AddressModel> addAddress(@RequestBody @Valid AddressModel address, BindingResult bindingResult) {
+        BaseResponse<AddressModel> response = new BaseResponse<AddressModel>();
+        if (bindingResult.hasErrors()) {
+            response.setStatus(500);
+            response.setMessage("error data");
+        } else {
+            addressDb.save(address);
+            response.setStatus(200);
+            response.setMessage("success");
+            response.setResult(address);
+        }
+        return response;
+    }
+
     @PostMapping(value = "/address/delete/{id}")
-    public BaseResponse<AddressModel> deleteAdressById(@PathVariable(name = "id", required = true) long id) {
+    public BaseResponse<AddressModel> deleteAddressById(@PathVariable(name = "id", required = true) long id) {
         Optional<AddressModel> data = addressDb.findById(id);
         BaseResponse<AddressModel> response = new BaseResponse<>();
         if (data.isPresent()) {
