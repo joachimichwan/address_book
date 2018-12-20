@@ -1,0 +1,32 @@
+# Address Book Apps
+
+## Langkah-langkah menjalankan application
+-  Install Minikube
+    - Windows
+        - Install choclatey dengan menjalankan `@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"` di cmd yang sudah di run as administrator.
+        - Install minikube dengan perintah `choco install minikube -y`
+        - Install kubernetes cli dengan `choco install kubernetes-cli -y`
+        - Semua perintah dijalankan run as administrator
+    - Mac OS
+        - Install brew dengan mengikuti tutorial di [sini](https://docs.brew.sh/Installation).
+        - Install minikube dengan perintah `brew install minikube`
+        - Install kubernetes cli dengan `brew install kubernetes-cli`
+-  Build address-book container
+    - Pertama-tama pastikan terdapat maven pada komputer anda.
+    - Build aplikasi dengan perintah `mvn clean install`.
+    - Jalankan minikube dengan perintah `minikube ssh`
+    - Change directory ke directory utama address_book. Untuk windows biasanya hanya bisa ke partisi C jadinya directory address booknya taro di C
+    - Jalankan `docker build . -t address-book:latest` di directory address_book
+    - Keluar dengan perintah `exit`
+- Menjalankan postgresql
+    - Jalankan `kubectl apply -f postgres/volume.yaml` untuk membuat volume.
+    - Jalankan `kubectl apply -f postgres/volume_claim.yaml` untuk membuat volume claim.
+    - Jalankan `kubectl apply -f postgres/postgres-secret.yaml` untuk menaruh secret variable ke kubernetes cluster.
+    - Jalankan `kubectl apply -f postgres/postgres-deployment.yaml` untuk menjalankan deployment postgres.
+    - Penjelasan lebih lanjut mengenai postgres pada kubernetes bisa dilihat di [sini](https://medium.com/@markgituma/kubernetes-local-to-production-with-django-3-postgres-with-migrations-on-minikube-31f2baa8926e).
+- Menjalankan address book
+    -Jalankan address book dengan peintah `kubectl apply -f address-book-deployment.yaml`
+    - Expose endpoint dengan perintah `kubectl expose address-book-deployment --type=NodePort`
+    - Anda bisa mengakses endpoint format url `ClusterIp:NodePort` atau perintah `minikube service address-book-deployment`
+- Untuk memantau kubernetes bisa menggunakan perintah `minikube dashboard` yang otomatis membuka browser untuk membuka dashboard minikube.
+- Semua perintah telah diuji dengan Windows 10 Pro. Mungkin akan ada masalah pada Windows 10 Home karena Hyper-V hanya support di Windows 10 Enterpresie, Professional, dan Education.
