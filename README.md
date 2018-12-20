@@ -13,7 +13,7 @@
         - Install kubernetes cli dengan `brew install kubernetes-cli`
 -  Build address-book container
     - Pertama-tama pastikan terdapat maven pada komputer anda.
-    - Build aplikasi dengan perintah `mvn clean install`.
+    - Build aplikasi dengan perintah `mvn clean install` atau `mvnw clean install`.
     - Jalankan minikube dengan perintah `minikube ssh`
     - Change directory ke directory utama address_book. Untuk windows biasanya hanya bisa ke partisi C jadinya directory address booknya taro di C
     - Jalankan `docker build . -t address-book:latest` di directory address_book
