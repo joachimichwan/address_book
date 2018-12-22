@@ -12,7 +12,7 @@
         - Install minikube dengan perintah `brew install minikube`
         - Install kubernetes cli dengan `brew install kubernetes-cli`
 -  Build address-book container
-    - Pertama-tama pastikan terdapat maven pada komputer anda.
+    - Pertama-tama pastikan terdapat maven pada komputer anda atau gunakan maven wrapper jika tidak adak maven.
     - Build aplikasi dengan perintah `mvn clean install -DskipTests` atau `mvnw clean install -DskipTests`.
     - Jalankan minikube dengan perintah `minikube ssh`
     - Change directory ke directory utama address_book. Untuk windows biasanya hanya bisa ke partisi C jadinya directory address booknya taro di C
@@ -25,8 +25,8 @@
     - Jalankan `kubectl apply -f postgres/postgres-deployment.yaml` untuk menjalankan deployment postgres.
     - Penjelasan lebih lanjut mengenai postgres pada kubernetes bisa dilihat di [sini](https://medium.com/@markgituma/kubernetes-local-to-production-with-django-3-postgres-with-migrations-on-minikube-31f2baa8926e).
 - Menjalankan address book
-    -Jalankan address book dengan peintah `kubectl apply -f address-book-deployment.yaml`
+    - Jalankan address book dengan perintah `kubectl apply -f address-book-deployment.yaml`
     - Expose endpoint dengan perintah `kubectl expose deployment address-book-deployment --type=NodePort`
-    - Anda bisa mengakses endpoint format url `ClusterIp:NodePort` atau perintah `minikube service address-book-deployment`
+    - Anda bisa mengakses endpoint dengan format url `ClusterIp:NodePort` atau perintah `minikube service address-book-deployment`
 - Untuk memantau kubernetes bisa menggunakan perintah `minikube dashboard` yang otomatis membuka browser untuk membuka dashboard minikube.
-- Semua perintah telah diuji dengan Windows 10 Pro. Mungkin akan ada masalah pada Windows 10 Home karena Hyper-V hanya support di Windows 10 Enterpresie, Professional, dan Education.
+- Semua perintah telah diuji dengan Windows 10 Pro. Mungkin akan ada masalah pada Windows 10 Home karena Hyper-V hanya support di Windows 10 Enterprise, Professional, dan Education.
