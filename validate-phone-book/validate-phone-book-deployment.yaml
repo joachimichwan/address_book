@@ -17,6 +17,6 @@ spec:
         - name: validate-phone-book-container
           image: validate-phone-book:latest
           ports:
-            - containerPort: 8000
+            - containerPort: 8080
               protocol: TCP
           imagePullPolicy: Never
