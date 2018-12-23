@@ -10,8 +10,8 @@ RUN mkdir /code
 WORKDIR /code
 ADD requirements.txt /code/
 RUN pip install -r requirements.txt
-RUN python3 manage.py makemigrations && python3 manage.py migrate
+CMD python3 manage.py makemigrations && python3 manage.py migrate
 ADD . /code/
 ENTRYPOINT ["/usr/bin/python3"]
-CMD ["manage.py", "runserver", "8080"]
+CMD ["/code/manage.py", "runserver", "8080"]
 EXPOSE 8080
