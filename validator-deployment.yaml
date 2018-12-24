@@ -1,0 +1,22 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: validator-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: validator-container
+  template:
+    metadata:
+      labels:
+        app: validator-container
+        tier: backend
+    spec:
+      containers:
+        - name: validator-container
+          image: validator:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: Never
